@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ASIN Tracker</title>
+</head>
+<body>
+    <h1>Tracked Products</h1>
+    <form method="POST" action="{{ url_for('main.track') }}">
+        <input type="text" name="asin" placeholder="Enter ASIN" required>
+        <input type="number" name="threshold" placeholder="Price Threshold">
+        <button type="submit">Track</button>
+    </form>
+    <ul>
+        {% for product in products %}
+        <li>
+            <strong>{{ product.asin }}</strong> - £{{ product.price }}
+            <form method="POST" action="{{ url_for('main.remove', product_id=product.id) }}">
+                <button type="submit">Remove</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
